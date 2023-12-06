@@ -1,6 +1,24 @@
 require_relative 'operations/file_operations'
+require 'json'
 
-book_label_operations = FileOperations.new(books =[], label =[])
+def load_from_json(file_name)
+  if File.exist?(file_name)
+    json_data = File.read(file_name)
+    JSON.parse(json_data)
+  else
+    []
+  end
+end
+
+load_books_data_from_file = load_from_json('books.json')
+load_labels_data_from_file = load_from_json('labels.json')
+
+books = load_books_data_from_file
+labels = load_labels_data_from_file
+
+
+
+book_label_operations = FileOperations.new(books, labels)
 
 def options
     puts '1.list all books'
